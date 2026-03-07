@@ -5,6 +5,26 @@ import userRouter from "./routes/userRouter.js";
 const app = e();
 app.use(e.json());
 
+app.use((req,res,next)=>{
+    const token = req.header("Authorization");
+
+    if(token){
+        token = token.replace("Bearer ", "");
+
+        jwt.verify(token, "kv_secret_89", (err, decoded)=>{
+            if(err){
+                res.status(401).json({message: "Unauthorized"});
+            } else {
+                req.user = decoded;
+                
+            }
+        })
+    } 
+
+    next();
+
+})
+
 
 //connect database
 const mongoURL = "mongodb+srv://admin:admin123@kv-audio.u1uy4xz.mongodb.net/?appName=kv-audio"

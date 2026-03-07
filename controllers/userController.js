@@ -68,3 +68,23 @@ export const loginUser = async (req, res)=>{
     }
     
 }
+
+
+export const getUsers = async (req,res)=>{
+    try {
+        const users = await User.find();
+        res.status(200).json({
+            msg: "users retrieved successfully 👤❤️",
+            users
+        })
+
+    } catch(error) {
+        res.status(400).json({message : error.message});
+    }
+}
+
+
+export const isLoging = async (req,res)=>{
+    let data = req.body;
+    const user = await User.findOne({email: data.email});
+}
