@@ -28,3 +28,39 @@ export const  registerUser = async (req, res)=>{
     }
     
 }
+
+
+
+export const loginUser = async (req, res)=>{
+    let data = req.body;
+
+    try {
+
+        let user = await User.findOne({email: data.email});
+
+        if(!user){
+            return res.status(403).json({
+                msg: "User not found! "
+            })
+        }
+
+        let isPasswordCorrect = bcrypt.compare(data.password, user.password);
+
+        if(!isPasswordCorrect){
+            return res.status(403).json({
+                msg: "login and continue 👤❤️"
+            })
+        }
+
+        res.status(200).json({
+            msg: "login successfully 🔰",
+            "user details": {name : user.firstName, email: user.email, role: user.role },
+            token: "token"
+        })
+
+
+    } catch(error) {
+        res.status(400).json({message : error.message});
+    }
+    
+}
