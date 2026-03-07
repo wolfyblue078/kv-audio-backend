@@ -39,4 +39,16 @@ const userSchema = mongoose.Schema({
 });
 
 const User = mongoose.model("User", userSchema);
-export default User;
+export default User; 
+
+
+/*
+  "email": "himantha@gmail.com",
+  "password": "123",
+  "role": "admin"
+
+
+  "email": "sajini@gmail.com",
+  "password": "123",
+  "role": "user"
+*/

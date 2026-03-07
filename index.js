@@ -1,7 +1,9 @@
 import e from "express";
 import mongoose from "mongoose";
+import userRouter from "./routes/userRouter.js";
 
 const app = e();
+app.use(e.json());
 
 
 //connect database
@@ -13,6 +15,8 @@ mongoose.connect(mongoURL).then(()=>{
 })
 
 
-app.listen(3000, ()=>{
+app.use("/api/user", userRouter);
+
+app.listen(4000, ()=>{
     console.log("App is running on port 3000 ⏸️");
 });
