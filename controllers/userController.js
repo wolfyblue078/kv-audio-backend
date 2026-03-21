@@ -85,6 +85,5 @@ export const getUsers = async (req,res)=>{
 
 
 export const isLoging = async (req,res)=>{
-    let data = req.body;
-    const user = await User.findOne({email: data.email});
+    
 }

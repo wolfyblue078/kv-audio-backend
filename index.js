@@ -6,7 +6,7 @@ const app = e();
 app.use(e.json());
 
 app.use((req,res,next)=>{
-    const token = req.header("Authorization");
+    let token = req.header("Authorization");
 
     if(token){
         token = token.replace("Bearer ", "");
