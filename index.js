@@ -1,6 +1,7 @@
 import e from "express";
 import mongoose from "mongoose";
 import userRouter from "./routes/userRouter.js";
+import productRouter from "./routes/productRouter.js";
 
 const app = e();
 app.use(e.json());
@@ -16,7 +17,8 @@ mongoose.connect(mongoURL).then(()=>{
 
 
 app.use("/api/user", userRouter);
+app.use("/api/product", productRouter);
 
 app.listen(4000, ()=>{
-    console.log("App is running on port 3000 ⏸️");
+    console.log("App is running on port 4000 ⏸️");
 });

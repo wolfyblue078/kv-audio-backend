@@ -84,7 +84,7 @@ export const getUsers = async (req,res)=>{
 }
 
 
-export const authMiddleware = async (req,res,next)=>{
+export const authMiddleware = (req,res,next)=>{
 
     try {
         let token = req.header("Authorization");

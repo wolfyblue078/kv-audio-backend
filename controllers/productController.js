@@ -1,10 +1,15 @@
-import Product from "../models/product";
+import Product from "../models/product.js";
 
 export const addProduct = async (req,res)=>{
     
     try {
+        if(!req.user || req.user.role != "admin"){
+            return res.status(403).json({
+                message: "You're not authorized to do this action 🚫"
+            })
+        }
         //check if exists
-        const existing = await Product.findOne({ name });
+        const existing = await Product.findOne({ name: req.body.name });
         if (existing) return res.status(409).json({ message: "Product exists" });
 
         let data = req.body;
