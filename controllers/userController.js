@@ -84,6 +84,30 @@ export const getUsers = async (req,res)=>{
 }
 
 
-export const isLoging = async (req,res)=>{
-    
+export const authMiddleware = async (req,res,next)=>{
+
+    try {
+        let token = req.header("Authorization");
+
+        if(!token){
+            return res.status(402).json({
+                message: "Not Authorized!"
+            })
+        }
+
+        token = token.replace("Bearer ", "");
+        jwt.verify(token, "kv_secret_89", (error, decoded)=>{
+            if(error){
+                return res.status(402).json({
+                    message: "Not Authorized!"
+                })
+            }
+
+            req.user = decoded;
+            next();
+        })
+
+    } catch (error) {
+        res.status(400).json({message : error.message});
+    }
 }
