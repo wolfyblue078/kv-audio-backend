@@ -30,3 +30,22 @@ export const addProduct = async (req,res)=>{
     }
     
 }
+
+export const getProduct = async (req,res)=>{
+    try {
+        if(!req.user){
+            return res.status(403).json({
+                message: "login and continue!"
+            })
+        }
+
+        let products = await Product.find();
+        res.status(200).json({
+            message: "Products retrived successfully !",
+            products
+        })
+
+    } catch (error) {
+        message: "Internal server error!"
+    }
+}
