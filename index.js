@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/userRouter.js";
 import productRouter from "./routes/productRouter.js";
+import reviewRouter from "./routes/reviewRouter.js";
 
 dotenv.config();
 
