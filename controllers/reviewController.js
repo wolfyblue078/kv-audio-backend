@@ -9,18 +9,21 @@ export const addReview = async (req,res)=>{
             return res.status(401).json("Please sign in and continue 🔰");
         }
 
-        const newReview = new Review({email:user.email, comment, rating, productId, name: user.username});
 
         let alreadyReviewed = await Review.findOne({
-            email: user.email,
-            product: productId
-        });
+                    email: user.email,
+                    product: productId
+                });
 
-        if (alreadyReviewed) {
-            return res.status(400).json({
-                message: "You already reviewed this product 😅"
-            });
-        }
+                if (alreadyReviewed) {
+                    return res.status(400).json({
+                        message: "You already reviewed this product 😅"
+                    });
+                }
+                
+        const newReview = new Review({email:user.email, comment, rating, productId, name: user.username});
+
+        
 
         await newReview.save();
 
