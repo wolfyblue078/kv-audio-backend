@@ -1,14 +1,16 @@
 import e from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 import userRouter from "./routes/userRouter.js";
 import productRouter from "./routes/productRouter.js";
+
+dotenv.config();
 
 const app = e();
 app.use(e.json());
 
-
 //connect database
-const mongoURL = "mongodb+srv://admin:admin123@kv-audio.u1uy4xz.mongodb.net/?appName=kv-audio"
+const mongoURL = process.env.mongoURL;
 mongoose.connect(mongoURL).then(()=>{
     console.log("Database connect successfully!");
 }).catch((err)=>{

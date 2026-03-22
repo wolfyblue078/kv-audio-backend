@@ -1,6 +1,8 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
 
 export const  registerUser = async (req, res)=>{
 
@@ -31,7 +33,6 @@ export const  registerUser = async (req, res)=>{
 }
 
 
-
 export const loginUser = async (req, res)=>{
     let data = req.body;
 
@@ -54,7 +55,7 @@ export const loginUser = async (req, res)=>{
         }
 
 
-        let token = jwt.sign({email: user.email, role: user.role, username: user.username}, "kv_secret_89", { expiresIn: "1d" });
+        let token = jwt.sign({email: user.email, role: user.role, username: user.username}, process.env.SECRET_KEY, { expiresIn: "1d" });
 
         res.status(200).json({
             msg: "login successfully 👤❤️",
