@@ -21,6 +21,7 @@ mongoose.connect(mongoURL).then(()=>{
 
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
+app.use("/api/review", reviewRouter);
 
 app.listen(4000, ()=>{
     console.log("App is running on port 4000 ⏸️");

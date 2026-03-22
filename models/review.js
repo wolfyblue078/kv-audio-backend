@@ -19,7 +19,7 @@ const reviewSchema = mongoose.Schema({
         required: true
     },
     comment: {
-        type: Number,
+        type: String,
         required: true
     },
     date: {
@@ -33,5 +33,5 @@ const reviewSchema = mongoose.Schema({
     }
 })
 
-const Review = mongoose.Model("Review", reviewSchema);
+const Review = mongoose.model("Review", reviewSchema);
 export default Review;
