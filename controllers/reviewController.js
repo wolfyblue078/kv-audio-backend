@@ -72,3 +72,39 @@ export const getReviews = async (req,res)=>{
         });
     }    
 }
+
+export const deleteReview = async (req,res)=>{
+    try {
+        let user = req.user;
+
+            if(!user){
+            return res.status(401).json({
+                message: "please login and continue !"
+            })
+        }
+
+        if(user.role === "admin"){
+            const email = req.params.email;
+            const result = await Review.findOneAndDelete({email:email});
+
+            if(!result){
+                return res.status(401).json({
+                    message: "Can't find any reviews by this email!"
+                })
+            }
+
+            return res.status(200).json("Reviews deleted successfully 👍");
+        } else {
+                return res.status(403).json({
+                message: "Access denied 🚫"
+            });
+        }
+        
+
+
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message
+        });
+    }
+}
