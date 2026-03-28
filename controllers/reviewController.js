@@ -113,3 +113,43 @@ export const deleteReview = async (req,res)=>{
         });
     }
 }
+
+export const approveReview = async(req,res)=>{
+    try {
+        //check is logged
+        let user = req.user;
+        if(!user){
+            return res.status(403).json({
+                message: "Please login and continue!"
+            })
+        }
+
+        //check is admin
+        if(!(user.role === "admin")){
+            return res.status(404).json({
+                message: "You're not allowed do do this operation 🚫"
+            })
+        }
+
+        const email = req.params.email;
+
+        //operation
+        const review = await Review.updateOne({email: email}, {isApproved: true});
+        if(!review){
+            return res.status(404).json({
+                message: "Review not found ❌"
+            })
+        }
+
+        return res.status(201).json({
+            message: "Review updated successfully ✅"
+        })
+
+
+
+    } catch (error) {
+        return res.status(404).json({
+               message: error.message
+            })
+    }
+}
