@@ -12,7 +12,7 @@ export const addReview = async (req,res)=>{
 
         let alreadyReviewed = await Review.findOne({
                     email: user.email,
-                    product: productId
+                    productId: productId
                 });
 
                 if (alreadyReviewed) {
