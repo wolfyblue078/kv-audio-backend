@@ -82,16 +82,21 @@ export const deleteReview = async (req,res)=>{
                 message: "please login and continue !"
             })
         }
+        let review = await Review.findOne({
+            email: req.params.email
+        })
 
-        if(user.role === "admin"){
+        if (!review) {
+            return res.status(404).json({
+                message: "No reviews found for this email ❌"
+            });
+        }
+
+
+        if(user.role === "admin" || review.email === user.email){
             const email = req.params.email;
             const result = await Review.findOneAndDelete({email:email});
-
-            if(!result){
-                return res.status(401).json({
-                    message: "Can't find any reviews by this email!"
-                })
-            }
+            
 
             return res.status(200).json("Reviews deleted successfully 👍");
         } else {
